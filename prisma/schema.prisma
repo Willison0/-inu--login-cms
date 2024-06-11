@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model generos {
+  idgenero Int        @id @default(autoincrement())
+  generos  String     @db.VarChar(45)
+  personas personas[]
+}
+
+model nacionalidades {
+  idnacionalidad Int        @id @default(autoincrement())
+  nacionalidad   String     @db.VarChar(150)
+  personas       personas[]
+}
+
+model personas {
+  idperson                    Int                           @id @default(autoincrement())
+  p_nombre                    String                        @map("p-nombre") @db.VarChar(150)
+  s_nombre                    String                        @map("s-nombre") @db.VarChar(150)
+  p_apellido                  String                        @map("p-apellido") @db.VarChar(150)
+  s_apellido                  String                        @map("s-apellido") @db.VarChar(150)
+  genero                      Int
+  fecha_nacimiento            DateTime                      @db.DateTime(0)
+  cedula                      Int                           @unique(map: "cedula_UNIQUE")
+  nacionalidad                Int
+  pais                        Int
+  direccion_detallada         String                        @db.VarChar(250)
+  descripcion_personal        String                        @db.VarChar(150)
+  generos                     generos                       @relation(fields: [genero], references: [idgenero], onDelete: NoAction, onUpdate: NoAction, map: "fk_personas_generos1")
+  nacionalidades              nacionalidades                @relation(fields: [nacionalidad], references: [idnacionalidad], onDelete: NoAction, onUpdate: NoAction, map: "fk_personas_nacionalidades")
+  redes_sociales_has_personas redes_sociales_has_personas[]
+  users                       users[]
+
+  @@index([genero], map: "fk_personas_generos1_idx")
+  @@index([nacionalidad], map: "fk_personas_nacionalidades_idx")
+  @@index([pais], map: "fk_personas_pais1_idx")
+}
+
+model redes_sociales {
+  idred_social                Int                           @id @default(autoincrement())
+  red_social                  String                        @db.VarChar(100)
+  redes_sociales_has_personas redes_sociales_has_personas[]
+}
+
+model redes_sociales_has_personas {
+  redes_sociales_has_personas Int            @id
+  idpersonas                  Int
+  idred_social                Int
+  usuario_red_social          String         @db.VarChar(150)
+  personas                    personas       @relation(fields: [idpersonas], references: [idperson], onDelete: NoAction, onUpdate: NoAction, map: "fk_redes_sociales_has_personas_personas1")
+  redes_sociales              redes_sociales @relation(fields: [idred_social], references: [idred_social], onDelete: NoAction, onUpdate: NoAction, map: "fk_redes_sociales_has_personas_redes_sociales1")
+
+  @@index([idpersonas], map: "fk_redes_sociales_has_personas_personas1_idx")
+  @@index([idred_social], map: "fk_redes_sociales_has_personas_redes_sociales1_idx")
+}
+
+model tipo_usuario {
+  idtipo_usuario Int     @id @default(autoincrement())
+  tipo_usuario   String  @db.VarChar(150)
+  users          users[]
+}
+
+model users {
+  iduser         Int          @id @default(autoincrement())
+  idpersonas     Int
+  user_name      String       @db.VarChar(90)
+  password       String       @db.VarChar(50)
+  email          String       @db.VarChar(150)
+  create_at      DateTime     @db.DateTime(0)
+  idtipo_usuario Int
+  personas       personas     @relation(fields: [idpersonas], references: [idperson], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_personas1")
+  tipo_usuario   tipo_usuario @relation(fields: [idtipo_usuario], references: [idtipo_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_tipo_usuario1")
+
+  @@index([idpersonas], map: "fk_users_personas1_idx")
+  @@index([idtipo_usuario], map: "fk_users_tipo_usuario1_idx")
+}
