@@ -15,8 +15,10 @@
     "next": "14.2.3",
     "nodemailer": "^6.9.13",
     "prisma": "^5.15.0",
+    "puppeteer": "^22.11.0",
     "react": "^18",
     "react-dom": "^18",
+    "urlbox": "^2.2.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
