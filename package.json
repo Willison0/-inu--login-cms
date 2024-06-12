@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@hookform/resolvers": "^3.3.1",
     "@nextui-org/react": "^2.4.1",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
@@ -23,6 +24,19 @@
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.11.0",
     "yup": "1.3.2"
+=======
+    "@prisma/client": "5.15.0",
+    "argon2": "^0.40.3",
+    "jose": "^5.4.0",
+    "next": "14.2.3",
+    "nodemailer": "^6.9.13",
+    "prisma": "^5.15.0",
+    "puppeteer": "^22.11.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "urlbox": "^2.2.0",
+    "yup": "^1.4.0"
+>>>>>>> 1b1df2ddbd0b25fe95dca979a078dfe5e4bc0181
   },
   "devDependencies": {
     "@types/node": "latest",

@@ -4,7 +4,7 @@ interface LoginBody {
   }
 
 interface Social {
-  platform: string; // e.g. "Facebook", "Instagram", etc.
+  platform: number; // e.g. "Facebook", "Instagram", etc.
   handle: string; // e.g. "@johndoe"
 }
 
