@@ -12,8 +12,6 @@ import * as yup from "yup";
 import { number, object, string, date, array } from "yup";
 import { sendVerifiedEmail } from "../mails/sendMail";
 import Urlbox from "urlbox";
-import { connect } from "http2";
-import { Prisma } from "@prisma/client";
 
 // Get your API key and secret from urlbox.com
 const apiKey = "uLXfCfYFKGgKoACk";
